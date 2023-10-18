@@ -1,33 +1,29 @@
-
+#Jeffery
 import board
 import digitalio as dio
 import time
 from neopixel import NeoPixel
 import random
 import adafruit_hcsr04
-
+#Ultra Sonic Sensor
 sonar = adafruit_hcsr04.HCSR04(trigger_pin=board.D5, echo_pin=board.D6)
-
-led = dio.DigitalInOut(board.LED)
-led.direction = dio.Direction.OUTPUT
-
+#pir sensor
 pir = dio.DigitalInOut(board.D3)
 pir.direction = dio.Direction.INPUT
-
+#button
 button = dio.DigitalInOut(board.D7)
 button.direction = dio.Direction.INPUT
-
+#breakbeam
 bb = dio.DigitalInOut(board.D4)
 bb.direction = dio.Direction.INPUT
 bb.pull = dio.Pull.UP
-
+#neopixel
 np = NeoPixel(board.D2, 30, auto_write = True, brightness = 0.1)
-
+#color constants and speed
 green = (0,255,0)
 red = (255,0,0)
 yellow = (255,100,0)
 speed = 0.0001
-times = 0
 '''
 
 Function: fadeOut
@@ -85,18 +81,51 @@ def fadeIn(color = [0,0,255], speed=1):
         np.show()
         time.sleep(speed)
         print(color1)
+#Jeffery
+'''
 
+Function: arm
+
+Description: It canges the leds red and "arms" the security systems.
+
+Parameters: none
+
+Return value: "none".
+
+'''
 def arm():
     np.fill((255,100,0))
     print("armed")
     time.sleep(10)
+'''
+
+Function: disarm
+
+Description: It is used to disarm the alarm system and changed the led to green.
+
+Parameters: none
+
+Return value: "none".
+
+'''
 def disarm():
     print("disarm")
     np.fill((0,255,0))
     time.sleep(1)
-    
+#Carlos, Jeffery and Josiah
+'''
+
+Function: blink
+
+Description: It used to blink the leds red for when the security system is triggered.
+
+Parameters: none
+
+Return value: "none".
+
+'''
 def blink():
-    for i in range(5):
+    for i in range(3):
         fadeOut(red,speed)
         fadeIn(red,speed)
        
@@ -109,6 +138,7 @@ while True:
     elif not button.value and times == 1:
         disarm()
         times -= 1
+#Carlos and Josiah
     if times == 0:
         np.fill(green)
     else:
