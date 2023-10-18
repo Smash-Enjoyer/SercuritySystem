@@ -96,7 +96,7 @@ def disarm():
     time.sleep(1)
     
 def blink():
-    for i in range(10):
+    for i in range(5):
         fadeOut(red,speed)
         fadeIn(red,speed)
        
@@ -113,5 +113,10 @@ while True:
         np.fill(green)
     else:
         np.fill(red)
-        if bb.value == False or pir.value == True or sonar.distance < 10:
+    try:
+        if not bb.value or pir.value or sonar.distance < 10:
             blink()
+    except RuntimeError:
+        pass
+        
+    time.sleep(0.1)
