@@ -24,6 +24,7 @@ green = (0,255,0)
 red = (255,0,0)
 yellow = (255,100,0)
 speed = 0.0001
+times = 0
 '''
 
 Function: fadeOut
@@ -143,10 +144,12 @@ while True:
         np.fill(green)
     else:
         np.fill(red)
+        print(sonar.distance)
     try:
-        if not bb.value or pir.value or sonar.distance < 10:
+        
+        if (not bb.value or pir.value or sonar.distance < 10) and times==1:
             blink()
     except RuntimeError:
         pass
-        
+    
     time.sleep(0.1)
