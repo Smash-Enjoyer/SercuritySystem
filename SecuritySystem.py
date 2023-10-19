@@ -126,9 +126,12 @@ Return value: "none".
 
 '''
 def blink():
-    for i in range(3):
-        fadeOut(red,speed)
-        fadeIn(red,speed)
+    for i in range(50):
+        np.fill(red)
+        time.sleep(0.1)
+        np.fill((0,0,0))
+        time.sleep(0.1)
+        print("trigger")
        
 np.fill((0,255,0))
 
